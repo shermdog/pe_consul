@@ -9,6 +9,11 @@ class profile::consul (
   $server = false
 ) {
 
+  package { 'ruby-puppetdb':
+    ensure   => 'installed',
+    provider => 'gem',
+  }
+
   $servers = query_nodes("stage=${::stage} and Class[Profile::Consul::Server]", ipaddress)
   $agents  = query_nodes("stage=${::stage} and Class[Profile::Consul::Agent]", ipaddress)
 
